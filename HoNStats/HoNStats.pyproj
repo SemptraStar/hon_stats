@@ -21,10 +21,16 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="clustering.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="dataloader.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="main.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="transformation.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="visualization.py">
