@@ -100,7 +100,6 @@ def cluster_scatter_3d(df, model, colors, x = 0, y = 1, z = 2, xlabel = "X", yla
     
     plt.draw()
 
-
 def pca_2d(df, scaleFeatures = False, normalize = True):
     if scaleFeatures: df = scaleFeaturesDF(df)
 
@@ -219,6 +218,32 @@ def andrews_curves(df, class_column, normalize = False):
     plt.figure()
     plt.title(title)
     pd.plotting.andrews_curves(df, class_column)
+    plt.draw()
+
+def classes_plot_2d(df, class_col, classes, colors, title="Classes plot 2D", xlabel="X", ylabel="Y", transform="pca"):
+    """ """
+
+    if transform == "pca":
+        transformed = transformation.pca(df.drop([class_col], axis=1), 2)
+    elif transform == "iso":
+        transformed = transformation.isomap(df.drop([class_col], axis=1), 2, 6)
+    else:
+        transformed = df
+
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    ax.set_title(title + " ({0})".format(transform))
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel) 
+
+    for i in range(len(classes)):
+        ax.scatter(transformed[df[class_col] == classes[i]].iloc[:, 0], \
+           transformed[df[class_col] == classes[i]].iloc[:, 1], c=colors[i], marker = ".", alpha = "0.6")
+
+    handles, labels = ax.get_legend_handles_labels()
+    labels = classes
+    ax.legend(handles, labels)
+
     plt.draw()
 
 def draw_all():
